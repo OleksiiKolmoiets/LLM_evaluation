@@ -11,7 +11,11 @@ for q in questions:
     response = ollama.chat(
         model="llama3",
         messages=[{"role": "user", "content": q}],
-        options={"temperature": 0}
+        options={
+            "temperature": 0,
+            "top_p": 0.9,
+            "max_tokens": 2048
+                 }
     )
     print("\nQ:", q)
     print("A:", response["message"]["content"])
