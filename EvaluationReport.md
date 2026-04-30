@@ -46,21 +46,46 @@ List all 10–15 models you identified during reconnaissance.
 
 For each candidate, describe the screening process and your decision.
 
-### Model: [Name 1]
+### Model: [QuantFactory/Lily-Cybersecurity-7B-v0.2-GGUF]
 
-- **Size / quantization used:** [e.g., 7B / Q4_K_M]
-- **Screening questions asked:** [list the 3–4 questions you used]
-- **Response summary:** [brief description of response quality — 2–3 sentences]
-- **Decision:** ✅ Accepted / ❌ Rejected
-- **Reasoning:** [why you accepted or rejected this model]
+- **Size / quantization used:** [7B / Q4_K_M]
+- **Screening questions asked:** ["What is the difference between symmetric and asymmetric encryption? Name one widely used algorithm for each.", "What does the CVSS score represent? What is the scoring range and what do the severity levels mean?", "Write a Python script that takes a password as input and checks if it meets the following requirements: minimum 12 characters, at least one uppercase letter, at least one lowercase letter, at least one digit, at least one special character. The script should report which specific requirements are not met."]
+- **Response summary:** [TThe model produced correct answers consistent with the reference definitions for encryption and CVSS scoring. It covered the required concepts but did not include additional depth (e.g., modern algorithms beyond RSA or deeper CVSS metrics). The Python script was functional and met most requirements, but it stops validation early instead of reporting all missing conditions, which differs from the reference expectation. Overall, responses were accurate but somewhat simplified.]
+- **Decision:** ✅ Accepted 
+- **Reasoning:** [The model meets baseline correctness across all questions and aligns with reference answers. While some responses lack completeness or full adherence to requirements, no major technical errors were observed. Outputs are consistent and interpretable. This makes it suitable for further evaluation.]
 
-### Model: [Name 2]
+### Model: [qwen3-4b-cybersecurity-heretic]
 
-- **Size / quantization used:**
-- **Screening questions asked:**
-- **Response summary:**
-- **Decision:** ✅ Accepted / ❌ Rejected
-- **Reasoning:**
+- **Size / quantization used:** [4B / Q4_K_M]
+- **Screening questions asked:** ["On a Linux system, write a command to find all files with the SUID bit set. Explain why SUID files are a security concern.", "Explain how a TLS 1.3 handshake works and what changed compared to TLS 1.2. Why are these changes important for security?", "Explain how SQL injection works. Provide an example of vulnerable code (in any language), demonstrate the attack payload, and show the corrected version of the code.
+" ]
+- **Response summary:** [The model generated detailed answers that generally align with reference expectations, including correct SUID command usage and SQL injection examples with payloads and fixes. However, some answers include additional content beyond the required scope, and explanations vary in structure. TLS explanation lacks several key reference elements such as explicit comparison of round trips or mandatory forward secrecy. Responses are informative but not consistently aligned with the expected level of focus.]
+- **Decision:** ❌ Rejected
+- **Reasoning:** [While technically capable, the model does not consistently match the reference answer structure or required level of completeness. Some answers omit important elements (e.g., TLS specifics) while including unnecessary detail elsewhere. This inconsistency makes it harder to evaluate against a fixed benchmark. For screening purposes, more predictable alignment with reference answers is preferred.]
+
+### Model: [RavichandranJ/Dolphin3-Cyber-8B-GGUF]
+
+- **Size / quantization used:** [8B / Q4_K_M]
+- **Screening questions asked:** ["Explain how a TLS 1.3 handshake works and what changed compared to TLS 1.2. Why are these changes important for security?", "Explain the difference between an IDS and an IPS. In what scenario would you deploy one but not the other?", "Describe the methodology of a professional penetration test from start to finish. What happens in each phase? What is the difference between black-box, white-box, and gray-box testing?" ]
+- **Response summary:** [The model provided generally correct answers but did not consistently include all key elements from the reference answers. For example, TLS explanations lacked mention of important changes such as removal of legacy algorithms and mandatory forward secrecy. Conceptual answers addressed definitions but did not always include trade-offs or concrete scenarios as expected. Overall, responses were partially complete.]
+- **Decision:** ❌ Rejected
+- **Reasoning:** [The model demonstrates basic understanding but does not reliably meet completeness requirements defined in the reference answers. Missing important details reduces the usefulness of the responses for evaluation. Compared to other models, it provides less comprehensive coverage of key concepts. Therefore, it is not selected.]
+
+### Model: [AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF]
+
+- **Size / quantization used:** [8B / Q6_K]
+- **Screening questions asked:** ["What are the three steps of the TCP three-way handshake, and what is the purpose of each step?", "What is the difference between a vulnerability, an exploit, and a threat? Provide a concrete example that involves all three.", "Explain how ARP spoofing works at the network level. What tools can perform it? How can it be detected and prevented?"]
+- **Response summary:** [The model provided detailed responses that align closely with the reference answers. It correctly described TCP handshake steps, distinguished vulnerability/exploit/threat with examples, and explained ARP spoofing including detection and mitigation strategies. Some tool examples and minor details differ from the reference but do not significantly affect correctness. Responses are structured and cover most required elements.]
+- **Decision:** ✅ Accepted 
+- **Reasoning:** [The model consistently matches the expected level of completeness and technical accuracy defined in the reference answers. It includes both conceptual explanations and practical aspects where required. Minor deviations do not impact overall quality. It provides the most complete responses among the evaluated models.]
+
+### Model: [CorryL/piccolo_gorgone]
+
+- **Size / quantization used:** [9B / Q4_K_M]
+- **Screening questions asked:** ["On a Linux system, write a command to find all files with the SUID bit set. Explain why SUID files are a security concern.", "Explain the difference between an IDS and an IPS. In what scenario would you deploy one but not the other?", "Explain how SQL injection works. Provide an example of vulnerable code (in any language), demonstrate the attack payload, and show the corrected version of the code."]
+- **Response summary:** [The model produced correct individual statements but included large amounts of repeated and unrelated content. Responses were not focused on the specific questions and did not follow the expected structure. This makes it difficult to verify whether all required elements from the reference answers are covered.]
+- **Decision:** ❌ Rejected
+- **Reasoning:** [Although technically correct in parts, the model does not provide structured or concise answers aligned with the reference requirements. Excessive repetition reduces clarity and makes evaluation difficult. It does not consistently address questions directly. Therefore, it is not suitable for further evaluation.]
 
 *(Repeat for each screened model. Copy this block as many times as needed.)*
 
@@ -68,11 +93,13 @@ For each candidate, describe the screening process and your decision.
 
 | Model | Size | Decision | Key Reason |
 |-------|------|----------|------------|
-| | | ✅ / ❌ | |
-| | | ✅ / ❌ | |
-| | | ✅ / ❌ | |
+| QuantFactory/Lily-Cybersecurity-7B-v0.2-GGUF | 7B | ✅ | Correct and consistent answers; meets baseline requirements with acceptable completeness |
+| qwen3-4b-cybersecurity-heretic | 4B | ❌ | Inconsistent alignment with reference answers; missing key details and variable structure |
+| RavichandranJ/Dolphin3-Cyber-8B-GGUF | 8B | ❌ | Partially correct but lacks completeness and depth in key areas |
+| AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF | 8B | ✅ | Most complete and well-structured responses aligned with reference answers |
+| CorryL/piccolo_gorgone | 9B | ❌ | Excessive repetition and lack of focus reduce evaluability |
 
-**Final finalists:** [list the 4–6 models that passed screening]
+**Final finalists:** [QuantFactory/Lily-Cybersecurity-7B-v0.2-GGUF, AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF]
 
 ---
 
