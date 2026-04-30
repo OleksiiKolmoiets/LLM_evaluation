@@ -1,10 +1,11 @@
 import ollama
 
 questions = [
-    "What are the three steps of the TCP handshake?",
-    "Write an nmap SYN scan for 192.168.1.0/24 ports 22,80,443",
-    "Explain SQL injection with example",
-    "Explain CVE-2024-99999"
+    "are you working?"
+    #"What are the three steps of the TCP handshake?",
+    #"Write an nmap SYN scan for 192.168.1.0/24 ports 22,80,443",
+    #"Explain SQL injection with example",
+    #"Explain CVE-2024-99999"
 ]
 
 for q in questions:

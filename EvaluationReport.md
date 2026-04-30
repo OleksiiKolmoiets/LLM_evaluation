@@ -2,9 +2,9 @@
 
 **Course:** Advanced Python for Cybersecurity
 
-**Team members:** [Name 1], [Name 2], [Name 3], [Name 4]
+**Team members:** [Oleksii Kolomoiets], [Maximilian-Alexandru Konya]
 
-**Date:** [DD.MM.YYYY]
+**Date:** [30.04.2026]
 
 ---
 
@@ -14,10 +14,10 @@
 
 Describe your methodology for finding candidate models on HuggingFace:
 
-- **Keywords used:** [e.g., cybersecurity, pentest, security, uncensored, ...]
-- **Filters applied:** [e.g., model size, GGUF format, text-generation task, ...]
-- **Other sources consulted:** [e.g., Reddit r/LocalLLaMA, forums, articles, ...]
-- **Date of search:** [when you performed the search]
+- **Keywords used:** [cybersecurity, uncensored, offensive security, pentest, hacking]
+- **Filters applied:** [ model size 1-12B, GGUF format, text-generation task]
+- **Other sources consulted:** [Reddit, Forums]
+- **Date of search:** [21.04.2026]
 
 ### 1.2 Candidate List
 
@@ -25,11 +25,11 @@ List all 10–15 models you identified during reconnaissance.
 
 | # | Model Name | HuggingFace URL | Size | Architecture | Type (fine-tune / uncensored / general) | Downloads | Last Updated | Quantization Available |
 |---|-----------|-----------------|------|-------------|----------------------------------------|-----------|-------------|----------------------|
-| 1 | | | | | | | | |
-| 2 | | | | | | | | |
-| 3 | | | | | | | | |
-| 4 | | | | | | | | |
-| 5 | | | | | | | | |
+| 1 | QuantFactory/Lily-Cybersecurity-7B-v0.2-GGUF | https://huggingface.co/QuantFactory/Lily-Cybersecurity-7B-v0.2-GGUF | 7B | llama | fine-tuned | 1,625 | Oct 20, 2024 | GGUF |
+| 2 | sillykiwi/Qwen3-4B-Cybersecurity-Heretic-16bit-Q4_K_M-GGUF | https://huggingface.co/sillykiwi/Qwen3-4B-Cybersecurity-Heretic-16bit-Q4_K_M-GGUF | 4B | qwen3 | uncensored, fine-tuned | 430 | Apr 3, 2026 | GGUF |
+| 3 | RavichandranJ/Dolphin3-Cyber-8B-GGUF | https://huggingface.co/RavichandranJ/Dolphin3-Cyber-8B-GGUF | 8B | llama | uncensored | 5,436 | Feb 13, 2026 | GGUF |
+| 4 | AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF | https://huggingface.co/AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF | 8B | llama | fine-tuned | 911 | Jun 4,2025 | GGUF |
+| 5 | CorryL/piccolo_gorgone | https://huggingface.co/CorryL/piccolo_gorgone/blob/main/README.md?code=true | 9B | qwen35 | uncensored | 88 | Mar 11, 2026 | GGUF |
 | 6 | | | | | | | | |
 | 7 | | | | | | | | |
 | 8 | | | | | | | | |

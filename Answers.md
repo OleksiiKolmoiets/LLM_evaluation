@@ -152,3 +152,74 @@ For capturing all HTTP POST requests, you can simply use:
 `http.request_method == POST`
 
 This filter looks at the HTTP request line and checks if the method field says "POST".
+
+Q: Explain how a TLS 1.3 handshake works and what changed compared to TLS 1.2. Why are these changes important for security?
+A: TLS 1.3 is the latest version of Transport Layer Security (TLS) that was published in August 2018 by IETF. The TLS protocol provides secure communication over the Internet through encryption. It is a widely used cryptographic protocol to secure web traffic and other network communications. TLS 1.3 has several improvements compared to TLS 1.2, including improved performance, better security, and reduced latency. This section discusses how TLS 1.3 works and its benefits for security.
+
+Q: What is the difference between a vulnerability, an exploit, and a threat? Provide a concrete example that involves all three.
+A: A vulnerability is a weakness in a system or application that can be exploited to cause harm. An exploit is a piece of software designed to take advantage of a vulnerability and achieve malicious results. A threat is the potential occurrence of an exploit. 
+
+For example, consider a web server with a known buffer overflow vulnerability. This is a threat because it could potentially be exploited by attackers (through exploits) to gain unauthorized access or disrupt the server. An exploit that takes advantage of this vulnerability would allow an attacker to send large amounts of data to the server until the buffer overflows and allows remote code execution. In this scenario, the overflow is the vulnerability, the exploit is the piece of software used by attackers to take advantage of it, and the attack itself is the threat.
+
+Q: Explain how ARP spoofing works at the network level. What tools can perform it? How can it be detected and prevented?
+A: ARP spoofing is a technique in which an attacker sends forged ARP replies to all hosts on the subnet, claiming that his MAC address is associated with another host’s IP address. When a host receives this reply, it updates its ARP cache with the attacker’s MAC address as the IP address of the target system. The attacker can then sniff traffic between the host and the target system by acting as a proxy. Tools such as Nmap, Arp-scan, and Caffeine-Latte can perform ARP spoofing attacks. To detect an ARP spoofing attack, run the command arp -a on Linux systems to view the contents of the ARP cache. If you find any entries with the MAC address 00:00:00 (FF:FF:FF:FF:FF:FF), then it is a sign that an attacker has performed an ARP spoofing attack. To prevent such attacks, use secure protocols such as IPsec and run the command arp -s to add static ARP entries in the ARP cache. You can also use tools such as Nmap to scan for rogue devices on your network. The following example demonstrates how to perform an ARP spoofing attack using Caffeine-Latte: # caffeine-latte -i eth0 -t 10.10.20.30 -b 10.10.20.1 To detect the attack, run the command arp -a on Linux systems.
+
+Q: What is a buffer overflow attack? Explain the mechanism using a simple C code example. Describe what modern operating system protections exist against it and how each one works.
+A: Buffer Overflow Attack
+=====================
+
+A buffer overflow, also known as a buffer overruns or stack smashing, occurs when more data is written to a fixed-size buffer than it can hold. This causes the extra bytes to spill into adjacent memory locations, potentially allowing an attacker to manipulate the program's control flow and execute arbitrary code.
+
+Mechanism
+---------
+
+Consider the following simple C code snippet:
+
+```c
+#include <stdio.h>
+#define BUFFER_SIZE 10
+
+void main() {
+    char buffer[BUFFER_SIZE];
+    printf("Enter a string: ");
+    fgets(buffer, sizeof(buffer), stdin);
+}
+```
+
+In this example, `fgets` reads input from the user into the `buffer`. If the user enters a string longer than `BUFFER_SIZE`, the extra characters will overflow into adjacent memory locations. An attacker can exploit this by crafting a malicious input that overflows the buffer and manipulates the program's control flow.
+
+Modern Operating System Protections
+----------------------------------
+
+Modern operating systems employ several protections to prevent buffer overflow attacks:
+
+### 1. Address Space Layout Randomization (ASLR)
+
+ASLR randomizes the memory addresses of libraries and executables at runtime, making it difficult for attackers to predict the location of functions or data structures in memory.
+
+### 2. Stack Canaries
+
+Stack canaries are special values placed on the stack before the return address. When a buffer overflow overwrites the return address, the program checks the canary value after returning from the function. If the canary has been overwritten, the program terminates, preventing the attacker's code from executing.
+
+### 3. Non-Executable Memory (NX)
+
+The NX bit marks certain memory regions as non-executable. This prevents attackers from placing shellcode in buffer overflow attacks and executing it directly.
+
+### 4. Data Execution Prevention (DEP)
+
+DEP is a hardware-based protection that prevents execution of code in data sections, such as stack or heap. DEP checks the memory permissions before allowing code execution and terminates the program if the memory region is marked as non-executable.
+
+### 5. Control Flow Integrity (CFI)
+
+CFI ensures that only authorized functions can be called by checking the control flow instructions at runtime. CFI prevents attackers from manipulating the control flow through buffer overflow attacks.
+
+Example Use Case
+---------------
+
+Consider a web application that accepts user input for form fields. If the developer fails to sanitize or validate the input, an attacker may exploit this vulnerability by crafting a malicious input that causes a buffer overflow in the server-side code. The attacker can then manipulate the program's control flow and execute arbitrary code on the server.
+
+To prevent such attacks, developers should:
+
+*   Implement robust input validation
+*   Use secure coding practices (e.g., CFI, ASLR)
+*   Regularly update software with security patches
