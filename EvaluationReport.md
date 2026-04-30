@@ -117,17 +117,27 @@ We scored every response on the following three criteria (1–5 scale):
 
 In addition, we defined the following criteria:
 
-**Custom Criterion 1: [Name]**
+**Custom Criterion 1: [Explanation Clarity]**
 
-- **What it measures:** [description]
-- **Why we chose it:** [justification]
-- **Scoring scale:** [how you score 1–5 on this criterion]
+- **What it measures:** [How clearly the model explains its answer (structure, readability, step-by-step logic, and use of examples).]
+- **Why we chose it:** [In cybersecurity, understanding why something works is just as important as the answer itself. A model may give correct information but still be hard to follow or learn from.]
+- **Scoring scale:** 
+5 — Very clear, well-structured, easy to follow with good explanations
+4 — Mostly clear, minor issues in structure
+3 — Understandable but somewhat confusing or unstructured
+2 — Hard to follow, poorly explained
+1 — Very unclear or no explanation
 
-**Custom Criterion 2: [Name]**
+**Custom Criterion 2: [Hallucination Resistance]**
 
-- **What it measures:**
-- **Why we chose it:**
-- **Scoring scale:**
+- **What it measures:** Whether the model avoids making up information when it is unsure, and instead admits uncertainty or corrects false assumptions.
+- **Why we chose it:** In cybersecurity, incorrect information can be dangerous. A model that confidently invents commands, vulnerabilities, or tools is much worse than one that says “I don’t know.” This criterion helps identify models that are reliable under uncertainty.
+- **Scoring scale:** 
+5 — Correctly identifies uncertainty or false premise; does not hallucinate
+4 — Mostly accurate, very minor speculation
+3 — Some guessing or partially incorrect assumptions
+2 — Noticeable hallucinations or invented details
+1 — Confidently provides completely false or fabricated information
 
 **Custom Criterion 3 (optional): [Name]**
 
@@ -271,6 +281,30 @@ If you tested other parameters (top_p, repeat penalty, system prompts), describe
 - **Model results summary:** [which models answered well, which failed, and why]
 
 ### Custom Question 2
+
+- **Question text:** You mistakenly encrypted your newly generated secret key with a really weak password (or even worse, you did not password protect it). Write down the OpenSSL command that you would use to change the password of your asymmetric secret key. 
+- **Category:** practical
+- **Why we chose this question:** This tests whether the model can correctly recall and construct real-world cryptographic command-line usage. It also checks for precision, since OpenSSL commands are syntax-sensitive and easy to get wrong.
+- **Reference answer:** openssl pkey -in private_key.pem -aes256 -out private_key_protected.pem
+- **Model results summary:** 
+
+### Custom Question 3
+
+- **Question text:**
+- **Category:**
+- **Why we chose this question:**
+- **Reference answer:**
+- **Model results summary:**
+
+### Custom Question 4
+
+- **Question text:**
+- **Category:**
+- **Why we chose this question:**
+- **Reference answer:**
+- **Model results summary:**
+
+### Custom Question 5
 
 - **Question text:**
 - **Category:**
