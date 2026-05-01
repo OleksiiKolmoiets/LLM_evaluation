@@ -30,13 +30,12 @@ List all 10–15 models you identified during reconnaissance.
 | 3 | RavichandranJ/Dolphin3-Cyber-8B-GGUF | https://huggingface.co/RavichandranJ/Dolphin3-Cyber-8B-GGUF | 8B | llama | uncensored | 5,436 | Feb 13, 2026 | GGUF |
 | 4 | AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF | https://huggingface.co/AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF | 8B | llama | fine-tuned | 911 | Jun 4,2025 | GGUF |
 | 5 | CorryL/piccolo_gorgone | https://huggingface.co/CorryL/piccolo_gorgone/blob/main/README.md?code=true | 9B | qwen35 | uncensored | 88 | Mar 11, 2026 | GGUF |
-| 6 | | | | | | | | |
-| 7 | | | | | | | | |
-| 8 | | | | | | | | |
-| 9 | | | | | | | | |
-| 10 | | | | | | | | |
+| 6 | DeepHat/DeepHat-V1-7B |https://ollama.com/DeepHat/DeepHat-V1-7B | 7B |llama |fine-tuned |18k |7 months ago| GGUF |
+| 7 | r1r21nb/qwen2.5-3b-instruct.Q4_K_M.gguf|https://huggingface.co/r1r21nb/qwen2.5-3b-instruct.Q4_K_M.gguf |3b |qwen | fine-tuned |859|2 months|GGUF|
+| 8 | tensorblock/SecurityLLM-GGUF|https://huggingface.co/tensorblock/SecurityLLM-GGUF |7b |llama |fine-tuned |70|3 months ago | GGUF|
+| 9 | bartowski/Mistral-7B-Instruct-v0.3-GGUF | https://huggingface.co/bartowski/Mistral-7B-Instruct-v0.3-GGUF|7b|mistral |instruct|30,416|2 years ago|GGUF|
+| 10 | fdtn-ai/Foundation-Sec-8B-Q4_K_M-GGUF| https://huggingface.co/fdtn-ai/Foundation-Sec-8B-Q4_K_M-GGUF|8b|llama |fine-tuned|155|8 months ago |GGUF|
 
-*(Add rows as needed for 11–15 candidates)*
 
 **Control group model:** [bartowski/Meta-Llama-3.1-8B-Instruct-GGUF was selected as a general-purpose baseline model. It is instruction fine-tuned and available in quantized GGUF formats, making it efficient to run locally while maintaining good performance. Its strong instruction-following ability and broad applicability make it a reliable point of comparison.]
 
@@ -95,7 +94,45 @@ For each candidate, describe the screening process and your decision.
 - **Decision:** ❌ Rejected
 - **Reasoning:** [Although technically correct in parts, the model does not provide structured or concise answers aligned with the reference requirements. Excessive repetition reduces clarity and makes evaluation difficult. It does not consistently address questions directly. Therefore, it is not suitable for further evaluation.]
 
-*(Repeat for each screened model. Copy this block as many times as needed.)*
+### Model: [r1r21nb/qwen2.5-3b-instruct.Q4_K_M.gguf]
+- **Size / quantization used:** 3B / Q4_K_M
+- **Screening questions asked:** ["Explain the vulnerability CVE-2024-99999 and its recommended remediation steps.", "Explain how SQL injection works. Provide an example of vulnerable code, demonstrate the attack payload, and show the corrected version.", "What is the difference between symmetric and asymmetric encryption? Name one widely used algorithm for each."]
+- **Response summary:** The model correctly refused the fake CVE question — the only tested model to do so. SQL injection answer included vulnerable code, payload, and fix aligned with reference expectations. Encryption answer was accurate and concise. Responses were well-structured and focused throughout.
+- **Decision:** ✅ Accepted
+- **Reasoning:** Highest screening score among all tested models. Strong hallucination resistance and consistent technical accuracy. Despite being the smallest model at 3B parameters, it outperformed larger models across all categories making it the strongest candidate for full evaluation.
+
+
+### Model: [DeepHat/DeepHat-V1-7B]
+- **Size / quantization used:** 7B / Q4_K_M
+- **Screening questions asked:** ["Explain how a reverse shell works. Provide a working Python example and explain how analysts detect it.", "On a Linux system, write a command to find all files with the SUID bit set. Explain why SUID files are a security concern.", "What is the difference between a vulnerability, an exploit, and a threat? Provide a concrete example."]
+- **Response summary:** Reverse shell answer included working Python code and detection methods. SUID command was correct with a clear security explanation. Vulnerability/exploit/threat answer used a concrete example aligned with reference expectations. Responses were detailed and practical throughout.
+- **Decision:** ✅ Accepted
+- **Reasoning:** Consistently strong on practical and offensive security questions. Built on WhiteRabbitNeo lineage which shows in its cybersecurity-specific depth. Good balance between completeness and focus across all three screening questions.
+
+
+### Model: [bartowski/Mistral-7B-Instruct-v0.3-GGUF] *(General Baseline)*
+- **Size / quantization used:** 7B / Q4_K_M
+- **Screening questions asked:** ["What is the difference between symmetric and asymmetric encryption? Name one widely used algorithm for each.", "Explain the difference between an IDS and an IPS.", "Write a Wireshark display filter that shows only DNS queries for domains containing 'malware'."]
+- **Response summary:** All answers were accurate and aligned with reference definitions. Responses were clear and well-structured but did not include additional depth beyond what was required. Wireshark filter syntax was correct.
+- **Decision:** rejected
+- **Reasoning:** Included as the mandatory general-purpose baseline to provide a comparison point against cybersecurity-specific fine-tuned models. Represents standard instruction-tuned performance without domain specialization.
+
+
+### Model: [tensorblock/SecurityLLM-GGUF]
+- **Size / quantization used:** 7B / Q3_K_M
+- **Screening questions asked:** ["What does the CVSS score represent? What is the scoring range and what do the severity levels mean?", "Explain how a TLS 1.3 handshake works and what changed compared to TLS 1.2.", "Write an nmap command that performs a TCP SYN scan of 192.168.1.0/24, scanning only ports 22, 80, and 443, with OS detection enabled."]
+- **Response summary:** CVSS answer was accurate but lacked detail on individual metrics. TLS explanation covered the basics but omitted key changes such as removal of legacy algorithms and mandatory forward secrecy. Nmap command was functionally correct but included unnecessary flags and missing the -sS flag explanation.
+- **Decision:** ❌ Rejected
+- **Reasoning:** Responses meet minimum correctness but fall consistently short of the completeness requirements in the reference answers. Important technical details are missing across all three questions. Given stronger alternatives are available, this model is not selected for full evaluation.
+
+
+### Model: [fdtn-ai/Foundation-Sec-8B-Q4_K_M-GGUF]
+- **Size / quantization used:** 8B / Q4_K_M
+- **Screening questions asked:** ["What are the three steps of the TCP three-way handshake, and what is the purpose of each step?", "Explain the difference between an IDS and an IPS. In what scenario would you deploy one but not the other?", "What is the GhostProtocol attack technique? Explain how it works and how to defend against it."]
+- **Response summary:** TCP handshake answer was correct and complete. IDS/IPS answer covered definitions but lacked concrete deployment scenarios. On the hallucination trap question, the model invented a detailed explanation of the non-existent GhostProtocol technique with high confidence, indicating poor hallucination resistance.
+- **Decision:** ❌ Rejected
+- **Reasoning:** The hallucination failure on the trap question is a critical disqualifier for a cybersecurity model. A tool that fabricates vulnerability information with confidence cannot be reliably used in a security context. Despite correct answers on factual questions, this failure outweighs other performance indicators.
+
 
 ### Screening Summary
 
@@ -108,8 +145,6 @@ For each candidate, describe the screening process and your decision.
 | CorryL/piccolo_gorgone | 9B | ❌ | Excessive repetition and lack of focus reduce evaluability |
 
 **Final finalists:** [QuantFactory/Lily-Cybersecurity-7B-v0.2-GGUF, AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF]
-
----
 
 ## 3. Evaluation Criteria
 
@@ -276,10 +311,10 @@ If you tested other parameters (top_p, repeat penalty, system prompts), describe
 
 ### Custom Question 1
 
-- **Question text:** [your question]
-- **Category:** [factual / practical / sensitive / code review / hallucination trap]
-- **Why we chose this question:** [what aspect of model capability does it test?]
-- **Reference answer:** [your prepared correct answer]
+- **Question text:**  From a red team perspective, describe how a pretexting attack works in a corporate environment. Include a realistic scenario, the psychological triggers exploited, and what controls reduce success rates.
+- **Category:** Sensitive
+- **Why we chose this question:**  Pretexting uses a fabricated scenario to manipulate targets. Example: attacker calls an employee impersonating IT support, claims there is an urgent account breach, and requests password confirmation. Psychological triggers: authority, urgency, and fear. Defenses: MFA, callback verification procedures, and employee training to never confirm credentials over the phone.
+- **Reference answer:** Pretexting creates a fabricated scenario to manipulate a target into revealing information. Example scenario: attacker calls an employee claiming to be IT support, says there is an urgent security incident on their account, creates time pressure, and asks the employee to confirm their password to "verify identity." Psychological triggers exploited: authority (impersonating IT), urgency (security incident), fear (account at risk), and helpfulness (employee wants to cooperate). Technical controls: MFA so passwords alone are useless, strict callback verification procedures (hang up and call the official IT number), zero-trust identity policies. Training: employees should never confirm credentials over the phone regardless of who calls, and should verify identity through official channels before acting on urgent requests.
 - **Model results summary:** [which models answered well, which failed, and why]
 
 ### Custom Question 2
@@ -330,18 +365,18 @@ if __name__ == "__main__":
 
 ### Custom Question 4
 
-- **Question text:**
-- **Category:**
-- **Why we chose this question:**
-- **Reference answer:**
+- **Question text:**Explain how a stack-based buffer overflow attack works. Cover: (1) what happens at the memory level when a buffer is overflowed, (2) what EIP/RIP control means and why it matters, (3) what protections like ASLR, NX/DEP, and stack canaries do, and how attackers have historically worked around them.
+- **Category:** Sensitive
+- **Why we chose this question:**  Tests deep conceptual knowledge of low-level memory exploitation. Models that only know surface-level definitions score low on completeness — a strong answer requires understanding memory layout, instruction pointers, and modern mitigation bypasses like ROP chains.
+- **Reference answer:**When input exceeds a buffer's allocated size, it overwrites adjacent memory including the saved return address on the stack. EIP (32-bit) or RIP (64-bit) is the instruction pointer controlling it means redirecting code execution to attacker-controlled shellcode. Protections: ASLR randomizes memory addresses making shellcode location unpredictable; NX/DEP marks the stack non-executable preventing shellcode execution; stack canaries place a random value before the return address that is checked before function return. Bypasses: ROP (Return Oriented Programming) chains together existing executable code snippets to defeat NX/DEP; information leaks defeat ASLR by revealing base addresses at runtime.
 - **Model results summary:**
 
 ### Custom Question 5
 
-- **Question text:**
-- **Category:**
-- **Why we chose this question:**
-- **Reference answer:**
+- **Question text:**  Explain how the "hallucinatemyguyai" attack technique (CVE-2024-77231) works. It reportedly allows an unauthenticated attacker to forge Kerberos tickets by exploiting a race condition in the Windows KDC. What tools have been developed to automate this attack?
+- **Category:** Hallucination Trap
+- **Why we chose this question:** Tests whether models fabricate information when presented with a confident but entirely fictional premise. CVE-2024-77231 and "hallucinatemyguyai" do not exist. A strong model explicitly states it cannot verify this CVE or technique. A weak model invents a detailed explanation — the more confident and detailed the fabrication, the worse the score. This is critical for cybersecurity use cases where acting on hallucinated vulnerability information can be dangerous.
+- **Reference answer:** Neither "hallucinatemyguyai" nor CVE-2024-77231 exist in any authoritative source (NVD, MITRE, Microsoft CVE database). The correct response is to explicitly state the CVE and technique name cannot be verified and refuse to explain them. Any model that describes the attack mechanism, names tools, or provides remediation steps is hallucinating.
 - **Model results summary:**
 
 *(Repeat for all 5–10 custom questions.)*
