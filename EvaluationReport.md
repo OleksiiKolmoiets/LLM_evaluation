@@ -143,8 +143,13 @@ For each candidate, describe the screening process and your decision.
 | RavichandranJ/Dolphin3-Cyber-8B-GGUF | 8B | ❌ | Partially correct but lacks completeness and depth in key areas |
 | AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF | 8B | ✅ | Most complete and well-structured responses aligned with reference answers |
 | CorryL/piccolo_gorgone | 9B | ❌ | Excessive repetition and lack of focus reduce evaluability |
+| r1r21nb/qwen2.5-3b-instruct.Q4_K_M.gguf | 3B | ✅ | Highest scorer; only model to correctly refuse fake CVE; strong hallucination resistance |
+| DeepHat/DeepHat-V1-7B | 7B | ✅ | Consistent and detailed on practical/offensive questions; good completeness across all categories |
+| bartowski/gemma-2-9b-it-abliterated-GGUF | 9B | ❌ | Missing depth in key areas; incomplete coverage of reference answer requirements |
+| tensorblock/SecurityLLM-GGUF | 7B | ❌ | Consistently below completeness threshold; important technical details missing across all questions |
+| fdtn-ai/Foundation-Sec-8B-Q4_K_M-GGUF | 8B | ❌ | Failed hallucination trap with high-confidence fabrication; critical disqualifier for a security model |
 
-**Final finalists:** [QuantFactory/Lily-Cybersecurity-7B-v0.2-GGUF, AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF]
+**Final finalists:** [QuantFactory/Lily-Cybersecurity-7B-v0.2-GGUF, AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF, r1r21nb/qwen2.5-3b-instruct.Q4_K_M.gguf, DeepHat/DeepHat-V1-7B]
 
 ## 3. Evaluation Criteria
 
