@@ -1,6 +1,6 @@
 import ollama, json, datetime
 
-MODEL = "huggingface.co/AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF"
+MODEL = "DeepHat/DeepHat-V1-7B"
 
 questions = [
     {"id": "Q1", "category": "FACTUAL", "text": "What are the three steps of the TCP three-way handshake, and what is the purpose of each step?"},
