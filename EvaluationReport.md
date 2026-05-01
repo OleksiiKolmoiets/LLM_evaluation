@@ -38,13 +38,21 @@ List all 10–15 models you identified during reconnaissance.
 
 *(Add rows as needed for 11–15 candidates)*
 
-**Control group model:** [Name of the general-purpose model included for comparison and why you chose it]
+**Control group model:** [bartowski/Meta-Llama-3.1-8B-Instruct-GGUF was selected as a general-purpose baseline model. It is instruction fine-tuned and available in quantized GGUF formats, making it efficient to run locally while maintaining good performance. Its strong instruction-following ability and broad applicability make it a reliable point of comparison.]
 
 ---
 
 ## 2. Screening Results
 
 For each candidate, describe the screening process and your decision.
+
+### Model: [bartowski/Meta-Llama-3.1-8B-Instruct-GGUF]
+
+- **Size / quantization used:** [8B / Q4_K_M]
+- **Screening questions asked:** ["Write a Python script that takes a password as input and checks if it meets the following requirements: minimum 12 characters, at least one uppercase letter, at least one lowercase letter, at least one digit, at least one special character. The script should report which specific requirements are not met.", "Explain how a TLS 1.3 handshake works and what changed compared to TLS 1.2. Why are these changes important for security?", "Explain the difference between an IDS and an IPS. In what scenario would you deploy one but not the other?" ]
+- **Response summary:** [The model provides generally correct high-level explanations for most factual and conceptual questions, aligning with the reference answers. However, some answers lack precision ( TLS 1.3 handshake omits key details like 1-RTT/0-RTT and AEAD-only requirement), and one practical task (password script) contains a logical flaw where validation flags are inverted. The reverse shell example is also incomplete compared to the reference expectation, as it does not properly demonstrate command execution on the target side.]
+- **Decision:** ❌ Rejected
+- **Reasoning:** [The model performs adequately on basic explanations, but it shows weaknesses in practical correctness and depth compared to the reference answers. The presence of implementation errors and missing key security details reduces reliability for cybersecurity tasks, where precision is critical.]
 
 ### Model: [QuantFactory/Lily-Cybersecurity-7B-v0.2-GGUF]
 
