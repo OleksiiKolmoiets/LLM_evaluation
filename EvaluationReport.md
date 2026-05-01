@@ -45,7 +45,7 @@ List all 10–15 models you identified during reconnaissance.
 
 For each candidate, describe the screening process and your decision.
 
-### Model: [bartowski/Meta-Llama-3.1-8B-Instruct-GGUF]
+### Model: [bartowski/Meta-Llama-3.1-8B-Instruct-GGUF (general-purpose model)]
 
 - **Size / quantization used:** [8B / Q4_K_M]
 - **Screening questions asked:** ["Write a Python script that takes a password as input and checks if it meets the following requirements: minimum 12 characters, at least one uppercase letter, at least one lowercase letter, at least one digit, at least one special character. The script should report which specific requirements are not met.", "Explain how a TLS 1.3 handshake works and what changed compared to TLS 1.2. Why are these changes important for security?", "Explain the difference between an IDS and an IPS. In what scenario would you deploy one but not the other?" ]
@@ -114,7 +114,7 @@ For each candidate, describe the screening process and your decision.
 - **Size / quantization used:** 7B / Q4_K_M
 - **Screening questions asked:** ["What is the difference between symmetric and asymmetric encryption? Name one widely used algorithm for each.", "Explain the difference between an IDS and an IPS.", "Write a Wireshark display filter that shows only DNS queries for domains containing 'malware'."]
 - **Response summary:** All answers were accurate and aligned with reference definitions. Responses were clear and well-structured but did not include additional depth beyond what was required. Wireshark filter syntax was correct.
-- **Decision:** rejected
+- **Decision:** ❌ Rejected
 - **Reasoning:** Included as the mandatory general-purpose baseline to provide a comparison point against cybersecurity-specific fine-tuned models. Represents standard instruction-tuned performance without domain specialization.
 
 
@@ -144,7 +144,7 @@ For each candidate, describe the screening process and your decision.
 | AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF | 8B | ✅ | Most complete and well-structured responses aligned with reference answers |
 | CorryL/piccolo_gorgone | 9B | ❌ | Excessive repetition and lack of focus reduce evaluability |
 
-**Final finalists:** [QuantFactory/Lily-Cybersecurity-7B-v0.2-GGUF, AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF]
+**Final finalists:** [QuantFactory/Lily-Cybersecurity-7B-v0.2-GGUF, AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF, DeepHat/DeepHat-V1-7B, r1r21nb/qwen2.5-3b-instruct.Q4_K_M.gguf]
 
 ## 3. Evaluation Criteria
 
