@@ -55,7 +55,7 @@ for q in questions:
         "temperature": 0,
         "timestamp": datetime.datetime.now().isoformat()
     })
-    with open(r"C:\\Users\\aleks\\Desktop\\University\Advanced Python\\LLM_evaluation\\results2.json", "w") as f:
+    with open("results4.json", "w") as f:
         json.dump(results, f, indent=2)
 
-print("\nDONE — saved to C:\\Users\\aleks\\Desktop\\University\\Advanced Python\\LLM_evaluation\\results2.json")
+print("\nDONE — saved to results4.json")
