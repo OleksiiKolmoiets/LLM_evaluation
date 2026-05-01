@@ -86,7 +86,45 @@ For each candidate, describe the screening process and your decision.
 - **Decision:** ❌ Rejected
 - **Reasoning:** [Although technically correct in parts, the model does not provide structured or concise answers aligned with the reference requirements. Excessive repetition reduces clarity and makes evaluation difficult. It does not consistently address questions directly. Therefore, it is not suitable for further evaluation.]
 
-*(Repeat for each screened model. Copy this block as many times as needed.)*
+### Model: [r1r21nb/qwen2.5-3b-instruct.Q4_K_M.gguf]
+- **Size / quantization used:** 3B / Q4_K_M
+- **Screening questions asked:** ["Explain the vulnerability CVE-2024-99999 and its recommended remediation steps.", "Explain how SQL injection works. Provide an example of vulnerable code, demonstrate the attack payload, and show the corrected version.", "What is the difference between symmetric and asymmetric encryption? Name one widely used algorithm for each."]
+- **Response summary:** The model correctly refused the fake CVE question — the only tested model to do so. SQL injection answer included vulnerable code, payload, and fix aligned with reference expectations. Encryption answer was accurate and concise. Responses were well-structured and focused throughout.
+- **Decision:** ✅ Accepted
+- **Reasoning:** Highest screening score among all tested models. Strong hallucination resistance and consistent technical accuracy. Despite being the smallest model at 3B parameters, it outperformed larger models across all categories making it the strongest candidate for full evaluation.
+
+
+### Model: [DeepHat/DeepHat-V1-7B]
+- **Size / quantization used:** 7B / Q4_K_M
+- **Screening questions asked:** ["Explain how a reverse shell works. Provide a working Python example and explain how analysts detect it.", "On a Linux system, write a command to find all files with the SUID bit set. Explain why SUID files are a security concern.", "What is the difference between a vulnerability, an exploit, and a threat? Provide a concrete example."]
+- **Response summary:** Reverse shell answer included working Python code and detection methods. SUID command was correct with a clear security explanation. Vulnerability/exploit/threat answer used a concrete example aligned with reference expectations. Responses were detailed and practical throughout.
+- **Decision:** ✅ Accepted
+- **Reasoning:** Consistently strong on practical and offensive security questions. Built on WhiteRabbitNeo lineage which shows in its cybersecurity-specific depth. Good balance between completeness and focus across all three screening questions.
+
+
+### Model: [bartowski/Mistral-7B-Instruct-v0.3-GGUF] *(General Baseline)*
+- **Size / quantization used:** 7B / Q4_K_M
+- **Screening questions asked:** ["What is the difference between symmetric and asymmetric encryption? Name one widely used algorithm for each.", "Explain the difference between an IDS and an IPS.", "Write a Wireshark display filter that shows only DNS queries for domains containing 'malware'."]
+- **Response summary:** All answers were accurate and aligned with reference definitions. Responses were clear and well-structured but did not include additional depth beyond what was required. Wireshark filter syntax was correct.
+- **Decision:** rejected
+- **Reasoning:** Included as the mandatory general-purpose baseline to provide a comparison point against cybersecurity-specific fine-tuned models. Represents standard instruction-tuned performance without domain specialization.
+
+
+### Model: [tensorblock/SecurityLLM-GGUF]
+- **Size / quantization used:** 7B / Q3_K_M
+- **Screening questions asked:** ["What does the CVSS score represent? What is the scoring range and what do the severity levels mean?", "Explain how a TLS 1.3 handshake works and what changed compared to TLS 1.2.", "Write an nmap command that performs a TCP SYN scan of 192.168.1.0/24, scanning only ports 22, 80, and 443, with OS detection enabled."]
+- **Response summary:** CVSS answer was accurate but lacked detail on individual metrics. TLS explanation covered the basics but omitted key changes such as removal of legacy algorithms and mandatory forward secrecy. Nmap command was functionally correct but included unnecessary flags and missing the -sS flag explanation.
+- **Decision:** ❌ Rejected
+- **Reasoning:** Responses meet minimum correctness but fall consistently short of the completeness requirements in the reference answers. Important technical details are missing across all three questions. Given stronger alternatives are available, this model is not selected for full evaluation.
+
+
+### Model: [fdtn-ai/Foundation-Sec-8B-Q4_K_M-GGUF]
+- **Size / quantization used:** 8B / Q4_K_M
+- **Screening questions asked:** ["What are the three steps of the TCP three-way handshake, and what is the purpose of each step?", "Explain the difference between an IDS and an IPS. In what scenario would you deploy one but not the other?", "What is the GhostProtocol attack technique? Explain how it works and how to defend against it."]
+- **Response summary:** TCP handshake answer was correct and complete. IDS/IPS answer covered definitions but lacked concrete deployment scenarios. On the hallucination trap question, the model invented a detailed explanation of the non-existent GhostProtocol technique with high confidence, indicating poor hallucination resistance.
+- **Decision:** ❌ Rejected
+- **Reasoning:** The hallucination failure on the trap question is a critical disqualifier for a cybersecurity model. A tool that fabricates vulnerability information with confidence cannot be reliably used in a security context. Despite correct answers on factual questions, this failure outweighs other performance indicators.
+
 
 ### Screening Summary
 
@@ -99,8 +137,6 @@ For each candidate, describe the screening process and your decision.
 | CorryL/piccolo_gorgone | 9B | ❌ | Excessive repetition and lack of focus reduce evaluability |
 
 **Final finalists:** [QuantFactory/Lily-Cybersecurity-7B-v0.2-GGUF, AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF]
-
----
 
 ## 3. Evaluation Criteria
 
