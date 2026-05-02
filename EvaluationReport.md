@@ -208,7 +208,7 @@ Average scores per question category for each finalist model.
 | Sensitive (Q11–Q15) | 19.2 | 20.8 |18.4|21.8|
 | Code Review Traps (Q16–Q19) | 21.0 | 21.5 |19.5|21.8|
 | Hallucination Traps (Q20–Q22) | 5.0 | 14.0 |5.7|7.7|
-| Offensive Security (Q-OFF) | | | |20.0|
+| Offensive Security (Q-OFF) | | |16|20.0|
 | Custom Questions | 17.6 | 18.8 | 16.4 |15.6|
 | **Overall Average** | 17.9 | 19.3 | 17.1 |19.1|
 
@@ -601,25 +601,29 @@ Summarize the 3–5 most important things you learned from this evaluation.
 
 If a cybersecurity professional asked you "which local model should I use?", what would you recommend?
 
-- **Best model for limited hardware (≤8 GB RAM, no GPU):** [name and reasoning] Mistral 7B (Q4 quantized) — punches above its weight on general cybersecurity knowledge and runs smoothly on CPU-only setups.ing]
-- **Models to avoid:** [name(s) and reasoning]
+- **Best model for limited hardware (≤8 GB RAM, no GPU):** BaronLLM Offensive Security — explicitly fine-tuned for offensive use cases, strongest on exploit explanation, attack methodology, and red-team prompts.
+- **Models to avoid:** Qwen2.5-3B for anything beyond basic lookups — its size limits technical depth. DeepHat-V1-7B may lack the domain-specific fine-tuning of Lily or Baron, making it a weaker choice if a fine-tuned alternative is available on the same hardware. 
 
 ### 9.3 Limitations of This Evaluation
 
 What are the limitations of your methodology? What would you do differently with more time?
 
-[Your honest assessment — e.g., limited number of models tested, subjective scoring, limited hardware, etc.]
+Only four models were evaluated, all in the 3B–7B range — this is a narrow sample and conclusions may not generalise to larger or more capable models.
 
----
+All testing ran on Google Colab free tier (T4 GPU), which introduced session timeout interruptions and limited how many models could be tested back-to-back in a single run.
+
+BaronLLM's Q6_K quantization made it heavier than the others, meaning comparisons weren't always on equal footing in terms of resource usage.
+
+Scoring involved subjective judgment, especially for open-ended offensive security questions where "correct" answers aren't always clear.
 
 ## Appendix: Environment and Reproducibility
 
-- **Hardware used:** [CPU, RAM, GPU model and VRAM]
-- **Operating system:** [e.g., Windows 11, Ubuntu 24.04, macOS]
-- **Cloud environment (if used):** [e.g., Google Colab T4]
-- **Inference tool:** [Ollama / llama-cpp-python / other]
-- **Python version:** [e.g., 3.11]
-- **Key library versions:** [ollama, llama-cpp-python, etc.]
+- **Hardware used:** Google Colab T4 GPU (16 GB VRAM), ~12 GB RAM, Intel Xeon CPU
+- **Operating system:**  Ubuntu 22.04
+- **Cloud environment (if used):** google colab T4 GPU
+- **Inference tool:** Ollama
+- **Python version:** 3.12
+- **Key library versions:** ollama
 - **Default parameters used:** [temperature, top_p, max_tokens unless varied]
 
 **Attached files:**
