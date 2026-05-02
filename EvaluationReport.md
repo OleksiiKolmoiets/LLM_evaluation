@@ -564,27 +564,26 @@ if __name__ == "__main__":
 
 Did model size correlate with answer quality? Compare your ≤7B and 7B–13B models.
 
-[Your analysis — which size category performed better? Was the difference consistent across question types, or did smaller models sometimes match or beat larger ones?]
+Larger models (7B–13B) generally outperformed ≤7B models, especially on multi-step reasoning and technical detail. However, the gap wasn't always consistent — smaller models sometimes matched larger ones on straightforward factual questions (e.g., defining terms or naming CVEs), where memorized knowledge matters more than reasoning depth.
 
 ### 8.2 Fine-tuned vs. General-Purpose
 
 Did cybersecurity fine-tuning provide a measurable advantage over the general-purpose control model?
 
-[Your analysis — where did the fine-tuned model(s) outperform? Where did the general-purpose model hold its own? Was the fine-tuning advantage worth the trade-offs (if any)?]
+Cybersecurity fine-tuned models showed a clear advantage on domain-specific tasks like explaining exploits, interpreting tool output, and using correct terminology. General-purpose models held their own on broad conceptual questions but often gave vague or overly cautious answers on offensive security topics. The fine-tuning advantage was most visible in specificity and confidence of answers.
 
 ### 8.3 Willingness vs. Accuracy
 
 Among models that were willing to answer offensive security questions, how accurate were their answers?
 
-[Your analysis — was there a correlation between willingness and accuracy, or did some models eagerly produce wrong answers?]
+There wasn't a strong positive correlation some models that willingly answered offensive security questions still produced inaccurate or incomplete responses. A few models were eager to answer but got technical details wrong (e.g., wrong flags, incorrect syntax). Refusal rate and accuracy were largely independent variables.
 
 ### 8.4 Strongest and Weakest Categories
 
 Which question categories were easiest and hardest for models overall?
 
-[Your analysis — e.g., "all models scored well on factual questions but struggled with code review traps"]
+There wasn't a strong positive correlation some models that willingly answered offensive security questions still produced inaccurate or incomplete responses. A few models were eager to answer but got technical details wrong (e.g., wrong flags, incorrect syntax). Refusal rate and accuracy were largely independent variables.
 
----
 
 ## 9. Conclusions and Recommendations
 
@@ -592,17 +591,17 @@ Which question categories were easiest and hardest for models overall?
 
 Summarize the 3–5 most important things you learned from this evaluation.
 
-1. [Finding 1]
-2. [Finding 2]
-3. [Finding 3]
+1. Model size generally correlates with answer quality, but the gap narrows significantly on factual/definitional cybersecurity questions where even smaller models perform well.
+2. Cybersecurity fine-tuned models consistently outperform general-purpose models on offensive security topics, producing more specific, technically accurate, and actionable answers.
+3. Willingness to answer does not guarantee accuracy — several models answered offensive questions confidently but with incorrect technical details, which could be dangerous in a real-world context.
+4. All models struggled most with code review and vulnerability-spotting tasks, suggesting current small LLMs are not yet reliable for automated security code auditing.
 
+   
 ### 9.2 Recommendations
 
 If a cybersecurity professional asked you "which local model should I use?", what would you recommend?
 
-- **Best model for limited hardware (≤8 GB RAM, no GPU):** [name and reasoning]
-- **Best model with a decent GPU (16 GB VRAM):** [name and reasoning]
-- **Best model for offensive security tasks specifically:** [name and reasoning]
+- **Best model for limited hardware (≤8 GB RAM, no GPU):** [name and reasoning] Mistral 7B (Q4 quantized) — punches above its weight on general cybersecurity knowledge and runs smoothly on CPU-only setups.ing]
 - **Models to avoid:** [name(s) and reasoning]
 
 ### 9.3 Limitations of This Evaluation
