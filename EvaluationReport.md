@@ -202,14 +202,14 @@ Average scores per question category for each finalist model.
 
 | Category | [Model 1] | [Model 2] | [Model 3] | [Model 4] |
 |----------|-----------|-----------|-----------|-----------|
-| Factual (Q1–Q3) | 24.3 | 21.0 |20|  |
-| Practical (Q4–Q7) | 15.0 | 20.5 |15.8 |  |
-| Conceptual (Q8–Q10) | 19.3 | 18.0 |20|  |
-| Sensitive (Q11–Q15) | 19.2 | 20.8 |18.4|  |
-| Code Review Traps (Q16–Q19) | 21.0 | 21.5 |19.5|  |
-| Hallucination Traps (Q20–Q22) | 5.0 | 14.0 |5.7|  |
+| Factual (Q1–Q3) | 24.3 | 21.0 |20| 22.3|
+| Practical (Q4–Q7) | 15.0 | 20.5 |15.8 |23.8|
+| Conceptual (Q8–Q10) | 19.3 | 18.0 |20|21.3|
+| Sensitive (Q11–Q15) | 19.2 | 20.8 |18.4|22.4|
+| Code Review Traps (Q16–Q19) | 21.0 | 21.5 |19.5|21.8|
+| Hallucination Traps (Q20–Q22) | 5.0 | 14.0 |5.7|7.7|
 | Offensive Security (Q-OFF) | | | | |
-| Custom Questions | 17.6 | 18.8 | 16.4 |  |
+| Custom Questions | 17.6 | 18.8 | 16.4 |15.6|
 | **Overall Average** | 17.9 | 19.3 | 17.1 |  |
 
 ### 4.2 Detailed Scores
