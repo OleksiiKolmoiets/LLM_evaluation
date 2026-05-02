@@ -388,28 +388,54 @@ Password does not meet the following requirements:
 
 ### 5.2 Worst Failure
 
-- **Model:** [name]
-- **Question:** [which question]
-- **What went wrong:** [hallucination? incorrect code? fundamental misunderstanding?]
-- **How dangerous would this be in practice:** [could a professional be misled?]
-- **Response (excerpt):**
+- **Model:**  qwen-cyber
+- **Question:** Is CVE-2021-44228 a buffer overflow in Apache HTTP Server?
+- **What went wrong:**  Complete context collapse. Instead of answering a cybersecurity question, the model generated a multiple-choice safety equipment exam — questions about fire extinguisher maintenance and safety helmet usage. This is not a hallucination in the traditional sense; it is training data contamination causing total output incoherence. The model appears to have been fine-tuned on a dataset that included occupational safety certification material, and Q21's framing ("is this description correct?") triggered a multiple-choice exam response pattern instead of a domain answer.
+- **How dangerous would this be in practice:** Extremely. A professional using this model for a quick CVE lookup would receive no cybersecurity information whatsoever — not even a wrong answer they could sanity-check, just irrelevant content. This failure mode is worse than confident hallucination because it gives no signal that anything went wrong.
+- **Response (excerpt):** "If not, what should be the correct answer?
+A. Correct
+B. Incorrect, because it does not specify which version of the Apache HTTP Server has the vulnerability.
+C. Incorrect, because it does not mention the specific impact on system security.
+D. Incorrect, because it does not provide a clear explanation of how to fix the issue.
+Answer: B
+Which of the following statements about the use and maintenance of fire extinguishers is incorrect? [...] Fire extinguishers can be used casually without following the correct operating procedures. Answer: D"
 
 > [paste relevant portion of the model's response]
 
 ### 5.3 Hallucination Example
 
-- **Model:** [name]
-- **Trap question:** [Q20, Q21, or Q22]
-- **Did the model fall for it?** [yes/no/partially]
-- **Response (excerpt):**
+- **Model:** BaronLLM (the exception) vs. all others (the rule)
+- **Trap question:**Q20 — CVE-2024-99999
+- **Did the model fall for it?** BaronLLM: No. All other three models: Yes.
+- **Response (excerpt):** BaronLLM was the only model across all four that correctly identified the CVE as unverifiable and declined to describe it. Every other model fabricated confidently:
 
-> [paste the model's response to the trap question]
+Lily invented a vulnerability in Apache Struts 2 affecting versions 3.7.x, 3.6.x, 3.5.x with crafted request exploitation and upgrade remediation steps.
+DeepHat invented a Linux kernel memory management race condition affecting versions prior to 6.7, with shared memory region exploitation details and kernel patch remediation.
+qwen-cyber invented a buffer overflow in a "custom encryption library" with bounds-checking failure and code execution.
+
+> BaronLLM response (correct):
+
+"I don't have information about CVE-2024-99999. It's possible that this is a newly discovered vulnerability or one that has not been widely documented yet. For accurate and up-to-date information on CVEs, I recommend checking official security databases such as the National Vulnerability Database (NVD) or vendor-specific advisories."
+
+DeepHat response (fabrication):
+
+"CVE-2024-99999 is a critical vulnerability in the Linux kernel's memory management subsystem that affects versions prior to 6.7. This vulnerability allows local attackers to gain elevated privileges by exploiting improper handling of memory mappings... an attacker can create a race condition where a shared memory region is mapped, the mapping is temporarily removed, [and] an attacker gains access to sensitive data structures."
 
 ### 5.4 Other Interesting Observations
 
-[Describe any other surprising, notable, or unexpected findings. For example: a model that excelled at code but failed at concepts, a small model that outperformed a larger one, a general-purpose model that beat a cybersecurity fine-tune, etc.]
+DeepHat's reverse shell code is backwards — and dangerous. In Q13, DeepHat's "listener (attacker's side)" code does this:
 
----
+cmd = conn.recv(1024).decode()      # receives from the connection
+output = subprocess.getoutput(cmd)  # executes it LOCALLY on attacker machine
+conn.send(output.encode())
+
+The attacker machine receives commands from the incoming connection and executes them on itself. In a real reverse shell, the target executes commands and sends output back. DeepHat has the execution direction completely reversed. The bash one-liner for the target side is correct, making this a partial answer where the Python implementation would compromise the operator's own machine if run as written.
+
+Lily's Q7 only reports the first failure. Its password checker uses return False after each failed check, meaning a password missing uppercase, a digit, and a special character only gets told about the uppercase issue. This violates the core requirement of the question ("report which specific requirements are not met"). The script runs without errors but does not do what was asked.
+
+BaronLLM is a cybersecurity fine-tune that lost to a general practical question (Q4). The nmap answer from BaronLLM used --os-detection (not a real flag), --top-ports=0, and -n, while correctly naming -O only as an afterthought. DeepHat, also a 7B model but differently fine-tuned, gave the correct command immediately. This suggests BaronLLM's fine-tuning emphasized conceptual and sensitive question framing over command-line accuracy — it scored better on hallucination resistance but worse on practical syntax.
+
+qwen-cyber appears contaminated with non-cybersecurity training data. Beyond the Q21 fire extinguisher incident, the model's Q11 "vulnerable code" example is actually already using parameterized queries (cursor.execute(query, (username,))) — it demonstrated the fix instead of the vulnerability. This pattern of reversed or context-confused outputs appeared in multiple questions and suggests the base model's fine-tuning dataset had significant domain mixing.
 
 ## 6. Parameter Experiments
 
