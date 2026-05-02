@@ -425,9 +425,11 @@ DeepHat response (fabrication):
 
 DeepHat's reverse shell code is backwards — and dangerous. In Q13, DeepHat's "listener (attacker's side)" code does this:
 
+'''
 cmd = conn.recv(1024).decode()      # receives from the connection
 output = subprocess.getoutput(cmd)  # executes it LOCALLY on attacker machine
 conn.send(output.encode())
+'''
 
 The attacker machine receives commands from the incoming connection and executes them on itself. In a real reverse shell, the target executes commands and sends output back. DeepHat has the execution direction completely reversed. The bash one-liner for the target side is correct, making this a partial answer where the Python implementation would compromise the operator's own machine if run as written.
 
