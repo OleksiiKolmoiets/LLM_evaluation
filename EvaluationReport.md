@@ -145,7 +145,7 @@ For each candidate, describe the screening process and your decision.
 | CorryL/piccolo_gorgone | 9B | ❌ | Excessive repetition and lack of focus reduce evaluability |
 | r1r21nb/qwen2.5-3b-instruct.Q4_K_M.gguf | 3B | ✅ | Highest scorer; only model to correctly refuse fake CVE; strong hallucination resistance |
 | DeepHat/DeepHat-V1-7B | 7B | ✅ | Consistent and detailed on practical/offensive questions; good completeness across all categories |
-| bartowski/gemma-2-9b-it-abliterated-GGUF | 9B | ❌ | Missing depth in key areas; incomplete coverage of reference answer requirements |
+| bartowski/Mistral-7B-Instruct-v0.3-GGUF | 9B | ❌ | Missing depth in key areas; incomplete coverage of reference answer requirements |
 | tensorblock/SecurityLLM-GGUF | 7B | ❌ | Consistently below completeness threshold; important technical details missing across all questions |
 | fdtn-ai/Foundation-Sec-8B-Q4_K_M-GGUF | 8B | ❌ | Failed hallucination trap with high-confidence fabrication; critical disqualifier for a security model |
 
