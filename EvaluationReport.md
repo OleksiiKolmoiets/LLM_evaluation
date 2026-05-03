@@ -674,7 +674,7 @@ Only four models were evaluated, all in the 3B–7B range — this is a narrow s
 
 All testing ran on Google Colab free tier (T4 GPU), which introduced session timeout interruptions and limited how many models could be tested back-to-back in a single run.
 
-BaronLLM's Q6_K quantization made it heavier than the others and DeepHat-V1-7B was not quantized, meaning comparisons weren't always on equal footing in terms of resource usage.
+BaronLLM's Q6_K quantization made it heavier than the others, meaning comparisons weren't always on equal footing in terms of resource usage.
 
 Scoring involved subjective judgment, especially for open-ended offensive security questions where "correct" answers aren't always clear.
 
