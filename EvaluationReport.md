@@ -110,7 +110,7 @@ For each candidate, describe the screening process and your decision.
 - **Reasoning:** Consistently strong on practical and offensive security questions. Built on WhiteRabbitNeo lineage which shows in its cybersecurity-specific depth. Good balance between completeness and focus across all three screening questions.
 
 
-### Model: [bartowski/Mistral-7B-Instruct-v0.3-GGUF] *(General Baseline)*
+### Model: [bartowski/Mistral-7B-Instruct-v0.3-GGUF] 
 - **Size / quantization used:** 7B / Q4_K_M
 - **Screening questions asked:** ["What is the difference between symmetric and asymmetric encryption? Name one widely used algorithm for each.", "Explain the difference between an IDS and an IPS.", "Write a Wireshark display filter that shows only DNS queries for domains containing 'malware'."]
 - **Response summary:** All answers were accurate and aligned with reference definitions. Responses were clear and well-structured but did not include additional depth beyond what was required. Wireshark filter syntax was correct.
