@@ -426,42 +426,57 @@ qwen-cyber appears contaminated with non-cybersecurity training data. Beyond the
 
 ### 6.1 Temperature Comparison
 
-Questions used for this experiment: [list the 3–4 questions you selected]
+Questions used for this experiment: 
+1. Write an nmap command that performs a TCP SYN scan of the target 192.168.1.0/24, scanning only ports 22, 80, and 443, with OS detection enabled. Explain each flag.
+2. Explain how a TLS 1.3 handshake works and what changed compared to TLS 1.2. Why are these changes important for security?
+3. Explain the vulnerability CVE-2024-99999 and its recommended remediation steps.
 
-**[Model 1]: [Name]**
-
-| Question | Temp = 0 (summary) | Temp = 0.5 (summary) | Temp = 1.0 (summary) | Observation |
-|----------|--------------------|--------------------|--------------------|----|
-| [Q#] | | | | |
-| [Q#] | | | | |
-| [Q#] | | | | |
-
-**[Model 2]: [Name]**
+**[Model 1]: [QuantFactory/Lily-Cybersecurity-7B-v0.2-GGUF]**
 
 | Question | Temp = 0 (summary) | Temp = 0.5 (summary) | Temp = 1.0 (summary) | Observation |
 |----------|--------------------|--------------------|--------------------|----|
-| [Q#] | | | | |
-| [Q#] | | | | |
-| [Q#] | | | | |
+| [Q1] | 3.4 | 3.4 | 4.0 | Mostly correct Nmap answer. Higher temperature added more valid OS-detection-related flags, but also unnecessary options. |
+| [Q2] | 3.0 | 2.8 | 2.2 | TLS explanation became less precise as temperature increased. Style became more informal and technical accuracy dropped. |
+| [Q3] | 2.0 | 2.0 | 1.8 | Failed the hallucination trap at all temperatures by inventing details about a nonexistent CVE. |
 
-*(Repeat for each finalist model.)*
+**[Model 2]: [AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF]**
+
+| Question | Temp = 0 (summary) | Temp = 0.5 (summary) | Temp = 1.0 (summary) | Observation |
+|----------|--------------------|--------------------|--------------------|----|
+| [Q1] | 2.6 | 2.6 | 2.0 | Used incorrect or unnecessary Nmap flags and failed to correctly enable OS detection. Temperature 1.0 made syntax worse. |
+| [Q2] | 1.8 | 2.6 | 2.0 | Temperature 0 produced severe repetition. Temperature 0.5 was more readable but still technically weak. |
+| [Q3] | 5.0 | 5.0 | 4.6 | Best hallucination-trap performance. Correctly stated that it had no information about the CVE instead of inventing details. |
+
+**[Model 3]: [r1r21nb/qwen2.5-3b-instruct.Q4_K_M.gguf]**
+
+| Question | Temp = 0 (summary) | Temp = 0.5 (summary) | Temp = 1.0 (summary) | Observation |
+|----------|--------------------|--------------------|--------------------|----|
+| [Q1] | 3.0 | 3.0 | 4.0 | At temperatures 0 and 0.5, the answer omitted -sS, so it did not fully satisfy the TCP SYN scan requirement. Temperature 1.0 corrected this. |
+| [Q2] | 3.0 | 3.2 | 2.8 | Generally structured and readable, but mixed correct TLS 1.3 points with inaccurate or unsupported claims. |
+| [Q3] | 4.0 | 3.4 | 4.2 | Mostly recognized uncertainty around the fake CVE, but temperature 0.5 speculated too much about possible vulnerability types. |
+
+**[Model 4]: [DeepHat/DeepHat-V1-7B]**
+
+| Question | Temp = 0 (summary) | Temp = 0.5 (summary) | Temp = 1.0 (summary) | Observation |
+|----------|--------------------|--------------------|--------------------|----|
+| [Q1] | 3.8 | 4.8 | 4.2 | Produced the best Nmap command overall. Temperature 0.5 was the clearest and most concise; temperature 0 repeated too much. |
+| [Q2] | 4.0 | 4.0 | 3.4 | Good TLS explanation at low and medium temperatures. Temperature 1.0 added more questionable details. |
+| [Q3] | 2.0 | 2.0 | 1.8 | Failed the hallucination trap completely by inventing different fake vulnerabilities at each temperature. |
 
 ### 6.2 Temperature Analysis
 
 Answer the following questions based on your experiments:
 
-- **Did factual accuracy change with temperature?** [your findings]
-- **Did hallucinations increase at higher temperatures?** [your findings]
-- **Was code quality affected?** [your findings]
-- **For which question types did temperature matter most?** [your findings]
-- **What temperature would you recommend for cybersecurity use?** [your recommendation and reasoning]
-
-### 6.3 Other Parameter Experiments (Optional)
-
-If you tested other parameters (top_p, repeat penalty, system prompts), describe your findings here.
-
-- **Parameter tested:** [name and values]
-- **Effect observed:** [description]
+- **Did factual accuracy change with temperature?** Yes. Factual accuracy became less stable as temperature increased. For command-style questions like Q4, higher temperature sometimes helped, such as Qwen adding the missing -sS flag at temperature 1.0. However, it also introduced incorrect or unnecessary flags in other models, especially BaronLLM.
+For conceptual explanations like Q9, higher temperature generally reduced precision. The answers often became more fluent or creative, but also included more unsupported technical claims.
+- **Did hallucinations increase at higher temperatures?** Yes. The clearest evidence is Q20. Lily and DeepHat hallucinated at every temperature, but the fabricated vulnerability details changed as temperature increased. Lily moved from Apache Struts to Windows Media Services, while DeepHat invented unrelated vulnerabilities involving temporary files, cryptographic libraries, and command injection.
+BaronLLM was the strongest on hallucination resistance because it consistently admitted that it did not have information about CVE-2024-99999 instead of inventing details.
+- **Was code quality affected?** Question 4 included command, not code. But yes, command quality were affected by temperature.
+DeepHat performed best on Q4, especially at temperature 0.5. Lily was mostly usable but used a questionable OS detection flag at lower temperatures. Qwen improved at temperature 1.0 because it finally included -sS. BaronLLM performed poorly because it repeatedly used --top-ports incorrectly and failed to give a clean OS detection command.
+- **For which question types did temperature matter most?** Temperature mattered most for hallucination-trap questions, especially Q20.
+The clearest evidence is that models like Lily and DeepHat invented different fake explanations for the nonexistent CVE-2024-99999 at different temperatures. Higher temperature did not improve accuracy; it mainly made the hallucinations more varied and inconsistent.
+- **What temperature would you recommend for cybersecurity use?** For cybersecurity tasks, we would recommend temperature = 0 or a low value such as 0.2–0.3.
+For practical cybersecurity work, correctness and consistency are more important than creativity. Commands, vulnerability explanations, and remediation advice should be deterministic and verifiable. Based on this experiment, temperature 0.5 can sometimes improve readability, especially for models that repeat themselves at temperature 0, but it should be used carefully. We would avoid temperature 1.0 for cybersecurity use because it increased hallucinations, unsupported details, and command syntax drift.
 
 ---
 
@@ -595,7 +610,7 @@ Only four models were evaluated, all in the 3B–7B range — this is a narrow s
 
 All testing ran on Google Colab free tier (T4 GPU), which introduced session timeout interruptions and limited how many models could be tested back-to-back in a single run.
 
-BaronLLM's Q6_K quantization made it heavier than the others, meaning comparisons weren't always on equal footing in terms of resource usage.
+BaronLLM's Q6_K quantization made it heavier than the others and DeepHat-V1-7B was not quantized, meaning comparisons weren't always on equal footing in terms of resource usage.
 
 Scoring involved subjective judgment, especially for open-ended offensive security questions where "correct" answers aren't always clear.
 
@@ -606,6 +621,13 @@ Scoring involved subjective judgment, especially for open-ended offensive securi
 - **Cloud environment (if used):** google colab T4 GPU
 - **Inference tool:** Ollama
 - **Python version:** 3.12
+- **Key library versions:** ollama
+- **Default parameters used:** [temperature, top_p, max_tokens unless varied]
+
+- **Hardware used:** GPU: AMD Radeon RX 7600 (8 GB VRAM), 16 GB RAM, CPU: AMD Ryzen 5 5600
+- **Operating system:**  Windows 11
+- **Inference tool:** Ollama
+- **Python version:** 3.13.13
 - **Key library versions:** ollama
 - **Default parameters used:** [temperature, top_p, max_tokens unless varied]
 
