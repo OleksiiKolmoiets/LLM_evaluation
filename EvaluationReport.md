@@ -697,6 +697,6 @@ Scoring involved subjective judgment, especially for open-ended offensive securi
 
 **Attached files:**
 
-- `evaluation_scores.csv` — complete scoring matrix for all models and questions
-- `evaluation_pipeline.py` — Python script used to run the evaluation
-- `raw_outputs.zip` — folder with raw model responses (optional)
+- `EvaluationLLMPython.py` — Python script used to run the evaluation
+- `EvaluationLLMPython_temperature.py` — Python script used to run the temperature evaluation
+- `outputs.zip` — folder with model responses 
