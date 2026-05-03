@@ -103,7 +103,7 @@ For each candidate, describe the screening process and your decision.
 
 
 ### Model: [DeepHat/DeepHat-V1-7B]
-- **Size / quantization used:** 7B (quantization unspecified)
+- **Size / quantization used:** 7B (no quantization)
 - **Screening questions asked:** ["Explain how a reverse shell works. Provide a working Python example and explain how analysts detect it.", "On a Linux system, write a command to find all files with the SUID bit set. Explain why SUID files are a security concern.", "What is the difference between a vulnerability, an exploit, and a threat? Provide a concrete example."]
 - **Response summary:** Reverse shell answer included working Python code and detection methods. SUID command was correct with a clear security explanation. Vulnerability/exploit/threat answer used a concrete example aligned with reference expectations. Responses were detailed and practical throughout.
 - **Decision:** ✅ Accepted
