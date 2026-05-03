@@ -644,7 +644,9 @@ There wasn't a strong positive correlation some models that willingly answered o
 
 Which question categories were easiest and hardest for models overall?
 
-There wasn't a strong positive correlation some models that willingly answered offensive security questions still produced inaccurate or incomplete responses. A few models were eager to answer but got technical details wrong (e.g., wrong flags, incorrect syntax). Refusal rate and accuracy were largely independent variables.
+The strongest category across all models was Factual, where even the smallest model (Qwen-3B) produced acceptable answers. Questions like defining the TCP handshake, CVSS scoring, or the difference between vulnerability/exploit/threat are well-represented in training data, so all four models handled them with reasonable accuracy and confidence.
+
+The weakest category overall was Hallucination Trap, but for opposite reasons depending on the model. General-purpose models like DeepHat performed relatively better here simply because they were more cautious by nature. Fine-tuned models, particularly BaronLLM, failed badly — fabricating detailed, confident explanations for non-existent CVEs and invented attack techniques. This is the most dangerous failure mode in a real-world security context.
 
 
 ## 9. Conclusions and Recommendations
