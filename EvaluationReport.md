@@ -30,11 +30,11 @@ List all 10–15 models you identified during reconnaissance.
 | 3 | RavichandranJ/Dolphin3-Cyber-8B-GGUF | https://huggingface.co/RavichandranJ/Dolphin3-Cyber-8B-GGUF | 8B | llama | uncensored | 5,436 | Feb 13, 2026 | GGUF |
 | 4 | AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF | https://huggingface.co/AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF | 8B | llama | fine-tuned | 911 | Jun 4,2025 | GGUF |
 | 5 | CorryL/piccolo_gorgone | https://huggingface.co/CorryL/piccolo_gorgone/blob/main/README.md?code=true | 9B | qwen35 | uncensored | 88 | Mar 11, 2026 | GGUF |
-| 6 | DeepHat/DeepHat-V1-7B |https://ollama.com/DeepHat/DeepHat-V1-7B | 7B |llama |fine-tuned |18k |7 months ago| BF16 |
+| 6 | DeepHat/DeepHat-V1-7B |https://ollama.com/DeepHat/DeepHat-V1-7B | 7B |qwen |fine-tuned |18k |7 months ago| BF16 |
 | 7 | r1r21nb/qwen2.5-3b-instruct.Q4_K_M.gguf|https://huggingface.co/r1r21nb/qwen2.5-3b-instruct.Q4_K_M.gguf |3b |qwen | fine-tuned |859|2 months|GGUF|
 | 8 | tensorblock/SecurityLLM-GGUF|https://huggingface.co/tensorblock/SecurityLLM-GGUF |7b |llama |fine-tuned |70|3 months ago | GGUF|
 | 9 | bartowski/Mistral-7B-Instruct-v0.3-GGUF | https://huggingface.co/bartowski/Mistral-7B-Instruct-v0.3-GGUF|7b|mistral |instruct|30,416|2 years ago|GGUF|
-| 10 | fdtn-ai/Foundation-Sec-8B-Q4_K_M-GGUF| https://huggingface.co/fdtn-ai/Foundation-Sec-8B-Q4_K_M-GGUF|8b|llama |fine-tuned|155|8 months ago |GGUF|
+| 10 | fdtn-ai/Foundation-Sec-8B-Q4_K_M-GGUF| https://huggingface.co/fdtn-ai/Foundation-Sec-8B-Q.4_K_M-GGUF|8b|llama |fine-tuned|155|8 months ago |GGUF|
 
 
 **Control group model:** [bartowski/Meta-Llama-3.1-8B-Instruct-GGUF was selected as a general-purpose baseline model. It is instruction fine-tuned and available in quantized GGUF formats, making it efficient to run locally while maintaining good performance. Its strong instruction-following ability and broad applicability make it a reliable point of comparison.]
@@ -674,11 +674,13 @@ What are the limitations of your methodology? What would you do differently with
 
 Only four models were evaluated, all in the 3B–7B range — this is a narrow sample and conclusions may not generalise to larger or more capable models.
 
-All testing ran on Google Colab free tier (T4 GPU), which introduced session timeout interruptions and limited how many models could be tested back-to-back in a single run.
+All testing ran on Google Colab free tier (T4 GPU) and on local Windows machine with 16GB RAM and 8GB VRAM, which introduced hardware limitations of making it problematic to run bigger models.
 
 BaronLLM's Q6_K quantization made it heavier than the others, meaning comparisons weren't always on equal footing in terms of resource usage.
 
 Scoring involved subjective judgment, especially for open-ended offensive security questions where "correct" answers aren't always clear.
+
+Another limitation is related to output length control. During testing, Ollama was configured with num_predict = 1024, which limits the maximum number of generated output tokens. This setting was sufficient for most answers, but it may have affected some results because several responses either reached the limit and ended abruptly or used the available length to continue into repetitive or unrelated content. For example, qwen-cyber produced a SQL injection answer that repeatedly included the same closing-style text and contact details, suggesting repetitive generation rather than useful additional content. The same model also produced an answer to the fake CVE question that continued into unnecessary corrected-code examples and ended mid-sentence, indicating likely truncation. Another qwen-cyber hallucination-trap answer drifted into unrelated multiple-choice questions about fire extinguishers and safety helmets, showing that the long generation limit allowed irrelevant continuation.
 
 ## Appendix: Environment and Reproducibility
 
@@ -688,14 +690,14 @@ Scoring involved subjective judgment, especially for open-ended offensive securi
 - **Inference tool:** Ollama
 - **Python version:** 3.12
 - **Key library versions:** ollama
-- **Default parameters used:** [temperature, top_p, max_tokens unless varied]
+- **Default parameters used:** [temperature = 0, top_p (default = 0.9), num_predict = 1024 (native Ollama parameter to which max_tokens gets converted)]
 
 - **Hardware used:** GPU: AMD Radeon RX 7600 (8 GB VRAM), 16 GB RAM, CPU: AMD Ryzen 5 5600
 - **Operating system:**  Windows 11
 - **Inference tool:** Ollama
 - **Python version:** 3.13.13
 - **Key library versions:** ollama
-- **Default parameters used:** [temperature, top_p, max_tokens unless varied]
+- **Default parameters used:** [temperature = 0, top_p (default = 0.9), num_predict = 1024 (native Ollama parameter to which max_tokens gets converted)]
 
 **Attached files:**
 
