@@ -30,7 +30,11 @@ List all 10–15 models you identified during reconnaissance.
 | 3 | RavichandranJ/Dolphin3-Cyber-8B-GGUF | https://huggingface.co/RavichandranJ/Dolphin3-Cyber-8B-GGUF | 8B | llama | uncensored | 5,436 | Feb 13, 2026 | GGUF |
 | 4 | AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF | https://huggingface.co/AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF | 8B | llama | fine-tuned | 911 | Jun 4,2025 | GGUF |
 | 5 | CorryL/piccolo_gorgone | https://huggingface.co/CorryL/piccolo_gorgone/blob/main/README.md?code=true | 9B | qwen35 | uncensored | 88 | Mar 11, 2026 | GGUF |
+<<<<<<< HEAD
 | 6 | DeepHat/DeepHat-V1-7B |https://ollama.com/DeepHat/DeepHat-V1-7B | 7B |qwen |fine-tuned |18k |7 months ago| BF16 |
+=======
+| 6 | DeepHat/DeepHat-V1-7B |https://ollama.com/DeepHat/DeepHat-V1-7B | 7B |qwen|fine-tuned |18k |7 months ago| BF16 |
+>>>>>>> a4df14a817bac91f8113d94d18c725286ccc32c4
 | 7 | r1r21nb/qwen2.5-3b-instruct.Q4_K_M.gguf|https://huggingface.co/r1r21nb/qwen2.5-3b-instruct.Q4_K_M.gguf |3b |qwen | fine-tuned |859|2 months|GGUF|
 | 8 | tensorblock/SecurityLLM-GGUF|https://huggingface.co/tensorblock/SecurityLLM-GGUF |7b |llama |fine-tuned |70|3 months ago | GGUF|
 | 9 | bartowski/Mistral-7B-Instruct-v0.3-GGUF | https://huggingface.co/bartowski/Mistral-7B-Instruct-v0.3-GGUF|7b|mistral |instruct|30,416|2 years ago|GGUF|
@@ -207,10 +211,10 @@ Average scores per question category for each finalist model.
 | Conceptual (Q8–Q10) | 23.0 | 18.0 |20|21.3|
 | Sensitive (Q11–Q15) | 20.2 | 20.8 |18.4|21.8|
 | Code Review Traps (Q16–Q19) | 17.8 | 21.5 |19.5|21.8|
-| Hallucination Traps (Q20–Q22) | 5.0 | 14.0 |5.7|7.7|
+| Hallucination Traps (Q20–Q22) | 5.0 | 14.0 |5.7| 5 |
 | Offensive Security (Q-OFF) | 16.0 | 21.0 |16|20.0|
-| Custom Questions | 17.0 | 18.8 | 16.4 |15.6|
-| **Overall Average** | 17.0 | 19.5 | 16.5 |19.3|
+| Custom Questions | 17.0 | 18.8 | 16.4 |15.0|
+| **Overall Average** | 17.0 | 19.5 | 16.5 |18.8|
 
 ### 4.2 Detailed Scores
 
@@ -336,12 +340,12 @@ MODEL 4
 | Q17 | 4 | 4 | 4 | 4 | 5 |
 | Q18 | 4 | 3 | 4 | 4 | 5 |
 | Q19 | 4 | 4 | 4 | 4 | 5 |
-| Q20 | 1 | 1 | 1 | 4 | 1 |
-| Q21 | 1 | 1 | 1 | 3 | 1 |
-| Q22 | 1 | 1 | 1 | 4 | 1 |
+| Q20 | 1 | 1 | 1 | 1 | 1 |
+| Q21 | 1 | 1 | 1 | 1 | 1 |
+| Q22 | 1 | 1 | 1 | 1 | 1 |
 | CQ1 | 4 | 4 | 4 | 4 | 5 |
 | CQ2 | 4 | 5 | 4 | 5 | 4 |
-| CQ3 | 1 | 1 | 1 | 4 | 1 |
+| CQ3 | 1 | 1 | 1 | 1 | 1 |
 | CQ4 | 2 | 3 | 2 | 4 | 3 |
 | CQ5 | 2 | 3 | 1 | 4 | 3 |
 
