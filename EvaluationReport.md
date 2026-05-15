@@ -30,7 +30,7 @@ List all 10–15 models you identified during reconnaissance.
 | 3 | RavichandranJ/Dolphin3-Cyber-8B-GGUF | https://huggingface.co/RavichandranJ/Dolphin3-Cyber-8B-GGUF | 8B | llama | uncensored | 5,436 | Feb 13, 2026 | GGUF |
 | 4 | AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF | https://huggingface.co/AlicanKiraz0/Cybersecurity-BaronLLM_Offensive_Security_LLM_Q6_K_GGUF | 8B | llama | fine-tuned | 911 | Jun 4,2025 | GGUF |
 | 5 | CorryL/piccolo_gorgone | https://huggingface.co/CorryL/piccolo_gorgone/blob/main/README.md?code=true | 9B | qwen35 | uncensored | 88 | Mar 11, 2026 | GGUF |
-| 6 | DeepHat/DeepHat-V1-7B |https://ollama.com/DeepHat/DeepHat-V1-7B | 7B |llama |fine-tuned |18k |7 months ago| BF16 |
+| 6 | DeepHat/DeepHat-V1-7B |https://ollama.com/DeepHat/DeepHat-V1-7B | 7B |qwen|fine-tuned |18k |7 months ago| BF16 |
 | 7 | r1r21nb/qwen2.5-3b-instruct.Q4_K_M.gguf|https://huggingface.co/r1r21nb/qwen2.5-3b-instruct.Q4_K_M.gguf |3b |qwen | fine-tuned |859|2 months|GGUF|
 | 8 | tensorblock/SecurityLLM-GGUF|https://huggingface.co/tensorblock/SecurityLLM-GGUF |7b |llama |fine-tuned |70|3 months ago | GGUF|
 | 9 | bartowski/Mistral-7B-Instruct-v0.3-GGUF | https://huggingface.co/bartowski/Mistral-7B-Instruct-v0.3-GGUF|7b|mistral |instruct|30,416|2 years ago|GGUF|
@@ -336,12 +336,12 @@ MODEL 4
 | Q17 | 4 | 4 | 4 | 4 | 5 |
 | Q18 | 4 | 3 | 4 | 4 | 5 |
 | Q19 | 4 | 4 | 4 | 4 | 5 |
-| Q20 | 1 | 1 | 1 | 4 | 1 |
-| Q21 | 1 | 1 | 1 | 3 | 1 |
-| Q22 | 1 | 1 | 1 | 4 | 1 |
+| Q20 | 1 | 1 | 1 | 1 | 1 |
+| Q21 | 1 | 1 | 1 | 1 | 1 |
+| Q22 | 1 | 1 | 1 | 1 | 1 |
 | CQ1 | 4 | 4 | 4 | 4 | 5 |
 | CQ2 | 4 | 5 | 4 | 5 | 4 |
-| CQ3 | 1 | 1 | 1 | 4 | 1 |
+| CQ3 | 1 | 1 | 1 | 1 | 1 |
 | CQ4 | 2 | 3 | 2 | 4 | 3 |
 | CQ5 | 2 | 3 | 1 | 4 | 3 |
 
